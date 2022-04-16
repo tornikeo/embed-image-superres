@@ -52,9 +52,10 @@ async function load_tfjs_model() {
     console.log("Model loaded.");
     console.log('Warming up model...');
     console.log(model);
+    // tf.enableDebugMode()
     await model.executeAsync(
         {
-            'image_tensor_uint8':tf.ones([32,32,3], dtype ='int32'),
+            'image':tf.ones([64,64,3], dtype ='float32'),
         },
     ); 
     console.log('Model warmed up.');
