@@ -11,13 +11,13 @@
 }
 
 .image-area {
-    border: 2px dashed rgba(255, 255, 255, 0.7);
+    border: 2px dashed rgba(156, 155, 155, 0.7);
     padding: 1rem;
     position: relative;
 }
 
 .image-area::before {
-    content: 'Uploaded image result';
+    /* content: 'Uploaded image result'; */
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -26,7 +26,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 0.8rem;
-    z-index: 1;
+    z-index: 0;
 }
 
 .image-area img {
@@ -42,9 +42,6 @@
 *
 */
 body {
-    min-height: 100vh;
-    background-color: #757f9a;
-    background-image: linear-gradient(147deg, #757f9a 0%, #d7dde8 100%);
 }
 
 #submit {

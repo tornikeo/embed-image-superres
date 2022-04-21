@@ -1,13 +1,9 @@
-let model = null;
+let MODEL = null;
 
 async function getImage(img) {
     // let img = document.getElementById(id)
     
-    img = tf.cast(tf.browser.fromPixels(img), 'float32');
 
-    const offset = tf.scalar(255.0);
-    // Normalize the image from [0, 255] to [0, 1].
-    img = img.div(offset)
     return img
 }
 
@@ -48,17 +44,25 @@ async function stylize(content_elem, style_elem, result_elem) {
 
 async function load_tfjs_model() {
     console.log("Loading model...");
-    model = await tf.loadGraphModel('static/js/model/model.json');
-    console.log("Model loaded.");
-    console.log('Warming up model...');
-    console.log(model);
-    // tf.enableDebugMode()
-    await model.executeAsync(
-        {
-            'image':tf.ones([64,64,3], dtype ='float32'),
-        },
-    ); 
-    console.log('Model warmed up.');
+    tf.loadGraphModel('static/js/model/model.json')
+    .then(model => {
+        console.log("Model loaded.");
+        console.log('Warming up model...');
+        console.log(model);
+        MODEL = model;
+
+    //     return model.executeAsync(
+    //         {
+    //             'image':tf.ones([64,64,3], dtype ='float32'),
+    //         },
+    //     )
+    // })
+    // .then(model => {
+    //     console.log('Model warmed up.');
+    //     console.log(model);
+    //     console.log('Model ready!');
+    //     MODEL = model;
+    });
 }
 
 window.addEventListener("load", e => {
@@ -66,9 +70,48 @@ window.addEventListener("load", e => {
     load_tfjs_model();
 });
 
+async function predict(img) {
+    if (MODEL !== null) {
+        console.log("Predicting...");
+        let result = await MODEL.executeAsync(
+            {
+                'image':img,
+            },
+            // ["result"]
+        ); 
+        result = tf.clipByValue(result, 0, 1);
+        console.log(result);
+        return result;
+    }
+}
+
+function displayResult(img) {
+    tf.browser.toPixels(img, document.getElementById('result'));
+}
+
+async function loadImage() {
+    img = document.getElementById('imageResult');
+    img = tf.browser.fromPixels(img)
+    img = tf.div(img,255.)
+    img = tf.cast(img, 'float32');
+    console.log(img);
+    return img
+}
+
 document.getElementById('submit').addEventListener('click', 
     e => {
         console.log("submit clicked");
+        loadImage()
+            .then(img => {
+                return predict(img)
+            })
+            .then(result => {
+                console.log(result);
+                displayResult(result);
+            })
+            .catch(e => {
+                console.error(e);
+            });
     }
 );
 

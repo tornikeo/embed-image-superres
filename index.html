@@ -15,20 +15,8 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <div class="container py-7">
+    <div class="container ">
 
-        <!-- For demo purpose -->
-        <header class="text-white text-center">
-            <h1 class="display-4">Image super-res</h1>
-            <p class="lead mb-0">Upload your image below</p>
-            <!-- <p class="mb-5 font-weight-light">Snippet by
-                <a href="https://bootstrapious.com" class="text-white">
-                    <u>Bootstrapious</u>
-                </a>
-            </p> -->
-            <img src="https://bootstrapious.com/i/snippets/sn-img-upload/image.svg" alt="" width="150" class="mb-4">
-        </header>
-    
     
         <div class="row py-4">
             <div class="col-lg-6 mx-auto">
@@ -44,9 +32,12 @@
     
                 <!-- Uploaded image area-->
                 <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-                <div class="image-area mt-4 "><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                <div class="image-area mt-4 "><img id="imageResult" src="/static/img/xxs-image.png" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                 
-                <a href="#" id="submit" class="btn btn-lg d-flex justify-content-center mt-4 px-2 py-2 rounded-pill bg-white shadow-sm text-uppercase font-weight-bold text-muted">Download</a>
+                <a href="#" id="submit" class="btn btn-lg d-flex justify-content-center mt-4 px-2 py-2 rounded-pill bg-white shadow-sm text-uppercase font-weight-bold text-muted">Perform upscaling</a>
+
+                <p class="font-italic text-white text-center">Upscaled image will be rendered inside the box below.</p>
+                <div class="image-area mt-4 "><canvas id="result" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></canvas></div>
             </div>
         </div>
     </div>
